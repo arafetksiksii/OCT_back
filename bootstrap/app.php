@@ -1,19 +1,43 @@
 <?php
 
 use Illuminate\Foundation\Application;
-use Illuminate\Foundation\Configuration\Exceptions;
-use Illuminate\Foundation\Configuration\Middleware;
+use Illuminate\Foundation\Bootstrap\LoadEnvironmentVariables;
+use Illuminate\Foundation\Bootstrap\LoadConfiguration;
+use Illuminate\Foundation\Bootstrap\HandleExceptions;
+use Illuminate\Foundation\Bootstrap\RegisterFacades;
+use Illuminate\Foundation\Bootstrap\RegisterProviders;
+use Illuminate\Foundation\Bootstrap\BootProviders;
 
-return Application::configure(basePath: dirname(__DIR__))
-    ->withRouting(
-        web: __DIR__.'/../routes/web.php',
-        api: __DIR__.'/../routes/api.php',
-        commands: __DIR__.'/../routes/console.php',
-        health: '/up',
-    )
-    ->withMiddleware(function (Middleware $middleware) {
-        //
-    })
-    ->withExceptions(function (Exceptions $exceptions) {
-        //
-    })->create();
+$app = new Application(dirname(__DIR__));
+
+// Bootstrap the application
+$app->bootstrapWith([
+    LoadEnvironmentVariables::class,
+    LoadConfiguration::class,
+    HandleExceptions::class,
+    RegisterFacades::class,
+    RegisterProviders::class,
+    BootProviders::class,
+]);
+
+// Register routes
+require __DIR__.'/../routes/web.php';
+require __DIR__.'/../routes/api.php';
+require __DIR__.'/../routes/console.php';
+
+// Register middleware
+$app->middleware([
+    // Add global middleware here
+]);
+
+$app->routeMiddleware([
+    // Add route middleware here
+]);
+
+// Register exception handling
+$app->singleton(
+    Illuminate\Contracts\Debug\ExceptionHandler::class,
+    App\Exceptions\Handler::class
+);
+
+return $app;
