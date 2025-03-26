@@ -8,6 +8,14 @@ use Illuminate\Support\Facades\Log;
 
 class LoginMutation
 {
+    /**
+     * Handle the login mutation.
+     *
+     * @param mixed $root
+     * @param array $args
+     * @return array
+     * @throws \Exception
+     */
     public function __invoke($root, array $args)
     {
         // Debug: Log the input email and password

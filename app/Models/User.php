@@ -9,11 +9,39 @@ class User extends Authenticatable
 {
     use HasApiTokens;
 
+    /**
+     * The table associated with the model.
+     *
+     * @var string
+     */
     protected $table = 'C##username.USERS';
+
+    /**
+     * The primary key for the model.
+     *
+     * @var string
+     */
     protected $primaryKey = 'ID';
+
+    /**
+     * Indicates if the IDs are auto-incrementing.
+     *
+     * @var bool
+     */
     public $incrementing = true;
+
+    /**
+     * Indicates if the model should be timestamped.
+     *
+     * @var bool
+     */
     public $timestamps = false;
 
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
     protected $fillable = [
         'ID',
         'NAME',
@@ -21,14 +49,22 @@ class User extends Authenticatable
         'PASSWORD', // Ensure this matches the database column name
     ];
 
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
     protected $hidden = [
         'PASSWORD', // Hide password for security
     ];
 
-    // Manually map the PASSWORD field
+    /**
+     * Get the password for the user.
+     *
+     * @return string
+     */
     public function getAuthPassword()
     {
-        return $this->attributes['password']; // Explicitly use the attribute array
+        return $this->attributes['PASSWORD']; // Explicitly use the attribute array
     }
-    
 }

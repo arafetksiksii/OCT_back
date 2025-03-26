@@ -195,10 +195,7 @@ return [
         'scalars' => 'App\\GraphQL\\Scalars',
         'directives' => 'App\\GraphQL\\Directives',
         'validators' => 'App\\GraphQL\\Validators',
-        'resolvers' => 'App\\GraphQL\\Resolvers', 
-
-        
-
+        'resolvers' => 'App\\GraphQL\\Resolvers',
     ],
 
     /*

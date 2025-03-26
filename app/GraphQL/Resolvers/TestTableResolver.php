@@ -9,7 +9,9 @@ class TestTableResolver
     /**
      * Resolve the TestTable data.
      *
-     * @return \Illuminate\Database\Eloquent\Collection
+     * @param mixed $root
+     * @param array $args
+     * @return \Illuminate\Support\Collection
      */
     public function resolveTestTable($root, array $args)
     {
